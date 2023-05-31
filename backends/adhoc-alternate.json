@@ -1,0 +1,6 @@
+{
+  "name": "alternate",
+  "proxyTo": "https://wilhelm-alternate.starburst-customer-success.com",
+  "active": true,
+  "routingGroup": "adhoc"
+}

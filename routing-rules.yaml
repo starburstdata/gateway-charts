@@ -1,0 +1,13 @@
+name: "insights"
+description: "Route browser and insights editor"
+priority: 0
+actions:
+  - "result.put(\"routingGroup\", \"insights\")"
+condition: "request.getHeader(\"User-Agent\") contains \"Mozilla\" || request.getHeader(\"x-trino-source\") contains \"insights\""
+---
+name: "dbeaver"
+description: "Route dbeaver requests"
+priority: 0
+actions:
+  - "result.put(\"routingGroup\", \"dbeaver\")"
+condition: "request.getHeader(\"x-trino-source\") contains \"dbeaver\""

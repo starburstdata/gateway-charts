@@ -1,0 +1,6 @@
+{
+  "name": "dbeaver-solo",
+  "proxyTo": "https://wilhelm.starburst-customer-success.com",
+  "active": true,
+  "routingGroup": "dbeaver"
+}

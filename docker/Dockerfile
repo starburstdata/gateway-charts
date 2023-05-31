@@ -11,15 +11,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-FROM registry.access.redhat.com/ubi8/ubi
+FROM registry.access.redhat.com/ubi9/openjdk-17
+USER root
+RUN whoami
 
-ENV JAVA_HOME /usr/lib/jvm/zulu11
 RUN \
     set -xeu && \
-    yum -y -q install https://cdn.azul.com/zulu/bin/zulu-repo-1.0.0-1.noarch.rpm && \
-    yum -y -q install zulu11-jdk less && \
-    yum -q clean all && \
-    rm -rf /var/cache/yum && \
     groupadd gateway --gid 1000 && \
     useradd gateway --uid 1000 --gid 1000 && \
     mkdir -p /gateway/bin /gateway/logs && \

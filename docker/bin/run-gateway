@@ -17,6 +17,7 @@ test -v KEYSTORE_PATH
 test -v KEYSTORE_PASSWORD
 test -v ROUTING_RULES_ENABLED
 test -v ROUTING_RULES_CONFIG_PATH
+#test -v COOKIE_PATHS
 
 echo "request port: ${REQUEST_PORT}"
 echo "app port: ${APP_PORT}"
@@ -37,6 +38,12 @@ KEYSTORE_PATH=$(echo ${KEYSTORE_PATH} | tr -d '\n ')
 KEYSTORE_PASSWORD=$(echo ${KEYSTORE_PASSWORD} | tr -d '\n ')
 ROUTING_RULES_ENABLED=$(echo ${ROUTING_RULES_ENABLED} | tr -d '\n ')
 ROUTING_RULES_CONFIG_PATH=$(echo ${ROUTING_RULES_CONFIG_PATH} | tr -d '\n ')
+#JWT_TOKEN=$(echo ${JWT_TOKEN} | tr -d '\n ')
+HEALTHCHECK_CONNECTION_TIMEOUT=$(echo ${HEALTHCHECK_CONNECTION_TIMEOUT} | tr -d '\n ')
+#HEALTHCHECK_JDBC_PORT=$(echo ${HEALTHCHECK_JDBC_PORT} | tr -d '\n ')
+#HEALTHCHECK_JDBC_USE_SSL=$(echo ${HEALTHCHECK_JDBC_USE_SSL} | tr -d '\n ')
+#HEALTHCHECK_USE_JWT=$(echo ${HEALTHCHECK_USE_JWT} | tr -d '\n ')
+#COOKIE_PATHS=$(echo ${COOKIE_PATHS} | tr -d '\n ')
 
 sed -i \
     -e "s|REQUEST_PORT|${REQUEST_PORT}|g" \
@@ -54,6 +61,17 @@ sed -i \
     -e "s|KEYSTORE_PASSWORD|${KEYSTORE_PASSWORD}|g" \
     -e "s|ROUTING_RULES_ENABLED|${ROUTING_RULES_ENABLED}|g" \
     -e "s|ROUTING_RULES_CONFIG_PATH|${ROUTING_RULES_CONFIG_PATH}|g" \
+    -e "s|HEALTHCHECK_CONNECTION_TIMEOUT|${HEALTHCHECK_CONNECTION_TIMEOUT}|g" \
+    -e "s|BACKEND_STATE_USERNAME|${BACKEND_STATE_USERNAME}|g" \
+    -e "s|BACKEND_STATE_PASSWORD|${BACKEND_STATE_PASSWORD}|g" \
+    -e "s|BACKEND_STATE_SSL|${BACKEND_STATE_SSL}|g" \
     /gateway/config.yml
+#    -e "s|HEALTHCHECK_JDBC_USE_SSL|${HEALTHCHECK_JDBC_USE_SSL}|g" \
+#    -e "s|JWT_TOKEN|${JWT_TOKEN}|g" \
+#    -e "s|HEALTHCHECK_JDBC_PORT|${HEALTHCHECK_JDBC_PORT}|g" \
+#    -e "s|HEALTHCHECK_USE_JWT|${HEALTHCHECK_USE_JWT}|g" \
+#    -e "s|COOKIE_PATHS|${COOKIE_PATHS}|g" \
 
-exec java -XX:MinRAMPercentage=50 -XX:MaxRAMPercentage=80 -jar /gateway/gateway-ha.jar server /gateway/config.yml "$@"
+cat /gateway/config.yml
+
+exec java -XX:MinRAMPercentage=50 -XX:MaxRAMPercentage=80 --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED -jar /gateway/gateway-ha.jar server /gateway/config.yml  "$@"

@@ -1,0 +1,6 @@
+{
+  "name": "insights-secondary",
+  "proxyTo": "https://wilhelm-alternate.starburst-customer-success.com",
+  "active": true,
+  "routingGroup": "insights"
+}

@@ -1,0 +1,56 @@
+# Default values for gateway.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: harbor.starburstdata.net/gateway/gateway
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: 1.9.5-v0.1
+imagePullSecrets: [{}] #e.g. -name: mySecret
+  # use kubectl create secret docker-registry regcred
+              # --docker-server=<your-registry-server>
+              # --docker-username=<your-name>
+              # --docker-password=<your-pword> --docker-email=<your-email>
+replicaCount: 2
+
+gateway:
+  requestPort: 8080
+  appPort: 8090
+  adminPort: 8091
+  log:
+    level: INFO
+  tls:
+    enabled: false
+    keystorePath: ""
+    keystorePassword: ""
+  routingRules:
+    enabled: false
+    configPath: ""
+  queryHistorySize: 1000
+  notifier:
+    startTlsEnabled: false
+    recipients: []
+
+monitor:
+  connectionTimeout: 60
+  #useJwtAuth: false
+  #jwt: ""
+  #use the jwt/generate.py script to make yourself a jwt
+  #jdbcPort: 443
+  #jdbcUseSsl: true
+
+additionalVolumes:
+  # This is used for mounting routing rule. If using, the path the rules
+  # are mounted at should match gateway,routingRules.configPath
+  - path:
+    volume:
+      configMap:
+        name:
+
+backendDatabase:
+  host:
+  port: 3306
+  schema:
+  user:
+  password:

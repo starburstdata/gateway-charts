@@ -1,0 +1,51 @@
+# Default values for gateway.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+image:
+  repository: willmo/gateway
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: 1.9.5-v0.77
+
+replicaCount: 2
+
+gateway:
+  requestPort: 8080
+  appPort: 8090
+  adminPort: 8091
+  log:
+    level: INFO
+  tls:
+    enabled: false
+    keystorePath: ""
+    keystorePassword: ""
+  routingRules:
+    enabled: true
+    configPath: "/routing-rules/routing-rules.yaml"
+  queryHistorySize: 1000
+  notifier:
+    startTlsEnabled: false
+    recipients: []
+  rerouteRequestsToApplication: false
+
+monitor:
+  connectionTimeout: 60
+  useJwtAuth: true
+  jwt: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJnYXRld2F5LXN2YyIsIm5iZiI6MTY4Mjk4ODY3MywiZXhwIjoyNTM0MDIyMzI0MDB9.CVBpNUoN4NO_da4T8_uZ_CvwgIK4_q4z1XaIeujIibdzhSp4WRsahMD_-FdEUl-AWRYDHt-gOgvD6W4zxpNnN4BKtoN6JBAf5RLGsZKDQNBm6IfmjGZviFpMxfcyQuo_qrzbwDylxuD-z4r2zs7NkHoWru1ZkTC5LGTGqg7DZ3tDKXOCKPLUkre0HIL2S71UI9heFOhyikbIjQqMgJW8ZPIqMq6BABb0R_TXjLg8megWrYGi7wpbjlGa414oR3oFTyn9TzD-pAStZCfFnLo0MpzifmG9IMTY1-wq8bs-lFFitR5pQgbVOKKlP_MlPTrzI-wK03DzbtnabQ0opIkp_w'
+  #use the jwt/generate.py script to make yourself a jwt
+  jdbcPort: 443
+  jdbcUseSsl: true
+
+additionalVolumes:
+  - path: /routing-rules
+    volume:
+      configMap:
+        name: routing-rules
+
+backendDatabase:
+  host: gateway-wm.cluster-ro-cng06bp9tay1.us-east-2.rds.amazonaws.com
+  port: 3306
+  schema: gateway?sslMode=DISABLED
+  user: lizard
+  password: "gizzardwizard"

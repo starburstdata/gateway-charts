@@ -22,6 +22,7 @@ gateway:
     enabled: false
     configPath: ""
   queryHistorySize: 1000
+  rerouteRequestsToApplication: true
 
 backendDatabase:
   host: localhost
@@ -43,6 +44,14 @@ service:
 imagePullSecrets: []
 nameOverride: ""
 fullnameOverride: ""
+
+monitor:
+  connectionTimeout: 15
+  useJwtAuth: false
+  jwt: ""
+  jdbcPort: 443
+  jdbcUseSsl: true
+
 
 resources: {}
 

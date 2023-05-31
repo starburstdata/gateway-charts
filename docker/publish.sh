@@ -2,12 +2,14 @@
 
 set -eux
 
-VERSION=$1
-NAME=posulliv/gateway
-IMAGE=gateway:$VERSION
-TARGET=$NAME:$VERSION
+GATEWAY_VERSION=$1
+TAG=$2
 
-./build.sh
+NAME=willmo/gateway
+IMAGE=gateway:${GATEWAY_VERSION}-${TAG}
+TARGET=$NAME:${GATEWAY_VERSION}-${TAG}
+
+./build.sh ${GATEWAY_VERSION} ${TAG}
 
 docker tag $IMAGE-amd64 $TARGET-amd64
 docker tag $IMAGE-arm64 $TARGET-arm64

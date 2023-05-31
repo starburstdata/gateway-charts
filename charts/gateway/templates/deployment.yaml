@@ -79,6 +79,18 @@ spec:
               value: {{ .Values.gateway.routingRules.enabled | quote }}
             - name: ROUTING_RULES_CONFIG_PATH
               value: {{ .Values.gateway.routingRules.configPath }}
+            - name: JWT_TOKEN
+              value: {{ .Values.monitor.jwt }}
+            - name: HEALTHCHECK_CONNECTION_TIMEOUT
+              value: "{{ .Values.monitor.connectionTimeout }}"
+            - name: HEALTHCHECK_JDBC_PORT
+              value: "{{ .Values.monitor.jdbcPort }}"
+            - name: HEALTHCHECK_JDBC_USE_SSL
+              value: {{ .Values.monitor.jdbcUseSsl | quote }}
+            - name: HEALTHCHECK_USE_JWT
+              value: {{ .Values.monitor.useJwtAuth | quote }}
+            - name: REROUTE_REQUESTS_TO_APPLICATION
+              value: {{ .Values.gateway.rerouteRequestsToApplication | quote }}
             {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
             {{- end }}

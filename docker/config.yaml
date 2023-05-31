@@ -1,0 +1,62 @@
+routingRules:
+  rulesEngineEnabled: false
+  #rulesConfigPath: ../routing-rules.yaml
+    #/routing-rules/routing-rules.json
+
+requestRouter:
+  port: 8080
+  name: prestoRouter
+  historySize: 1000
+  ssl: false
+  keystorePath: 
+  keystorePass:
+  rerouteRequestsToApplication: REROUTE_REQUESTS_TO_APPLICATION
+
+dataStore:
+  jdbcUrl: jdbc:mysql://gateway-wm.cluster-ro-cng06bp9tay1.us-east-2.rds.amazonaws.com:3306/gateway?sslMode=DISABLED
+  user: lizard
+  password: gizzardwizard
+  driver: com.mysql.cj.jdbc.Driver
+
+server:
+  applicationConnectors:
+    - type: http
+      port: 8090
+  adminConnectors:
+    - type: http
+      port: 8091
+
+# This can be adjusted based on the coordinator state
+monitor:
+  connectionTimeout: 15
+
+notifier:
+  startTlsEnabled: false
+  recipients: []
+
+modules:
+  - com.lyft.data.gateway.ha.module.HaGatewayProviderModule
+  - com.lyft.data.gateway.ha.module.ClusterStateListenerModule
+
+managedApps:
+  - com.lyft.data.gateway.ha.GatewayManagedApp
+  - com.lyft.data.gateway.ha.clustermonitor.ActiveClusterMonitor
+
+# Logging settings.
+logging:
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: DEBUG
+
+  # Logger-specific levels.
+  loggers:
+    com.lyft: DEBUG
+    com.lyft.data.gateway.ha.persistence.JdbcConnectionManager: INFO
+
+  appenders:
+    - type: console
+    - type: file
+      currentLogFilename: /tmp/gateway.log
+      archivedLogFilenamePattern: /tmp/gateway-%d{yyyy-MM-dd}-%i.log.gz
+      archivedFileCount: 1
+      timeZone: UTC
+      maxFileSize: 100MB

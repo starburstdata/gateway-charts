@@ -6,7 +6,7 @@ image:
   repository: willmo/gateway
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 1.9.5-v0.77
+  tag: 1.9.5-v0.80
 
 replicaCount: 2
 
@@ -44,8 +44,8 @@ additionalVolumes:
         name: routing-rules
 
 backendDatabase:
-  host: gateway-wm.cluster-ro-cng06bp9tay1.us-east-2.rds.amazonaws.com
+  host:
   port: 3306
-  schema: gateway?sslMode=DISABLED
-  user: lizard
-  password: "gizzardwizard"
+  schema:  
+  user:
+  password:

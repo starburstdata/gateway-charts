@@ -27,4 +27,4 @@ docker image inspect -f '🚀 Built {{.Id}}' ${CONTAINER}-amd64
 docker image inspect -f '🚀 Built {{.Id}}' ${CONTAINER}-arm64
 # cleanup
 rm -rf presto-gateway
-#rm gateway-ha-$GATEWAY_VERSION-jar-with-dependencies.jar
+rm gateway-ha-$GATEWAY_VERSION-jar-with-dependencies.jar

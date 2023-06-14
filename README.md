@@ -1,6 +1,8 @@
 
 Lyft's Presto Gateway Helm Charts
 ===========
+THIS REPOSITORY IS NOT GUARANTEED TO BE IN A WORKING STATE. FOR A STABLE RELEASE, PLEASE CONTACT STARBURST.
+===========
 
 [presto-gateway](https://github.com/lyft/presto-gateway) is a load balancer / proxy / gateway for Trino/Presto.
 

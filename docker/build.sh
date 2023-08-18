@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 set -xeuo pipefail
-
+JAVA_HOME=`/usr/libexec/java_home -v 11`
 GATEWAY_VERSION=$1
 TAG=$2
 
-branch='will/support_insights_editor'
+target='main'
 #'release-0.1'
 repo='git@github.com:starburstdata/presto-gateway.git'
 
@@ -14,7 +14,7 @@ git clone -q ${repo}
 
 # build
 pushd presto-gateway
-git checkout ${branch}
+git checkout ${target}
 mvn --quiet clean install -DskipTests
 # get JAR file
 cp gateway-ha/target/gateway-ha-$GATEWAY_VERSION-jar-with-dependencies.jar ..

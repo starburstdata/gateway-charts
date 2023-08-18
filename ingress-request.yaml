@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: gateway-request-ingress
+  annotations:
+    # Ingress Core Settings
+    kubernetes.io/ingress.class: "alb"
+    alb.ingress.kubernetes.io/inbound-cidrs: 100.40.95.150/32, 73.227.21.253/32
+    # inbound-cidrs applies to all endpoints
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTPS":443}]'
+    alb.ingress.kubernetes.io/healthcheck-port: '8090'
+    # health check the app port to avoid getting sucked into the redirect logic and health checking a backend
+
+    # If TLS is enabled and the AWS load balancer controller is used, then the aws load balancer controller will be unable to provision
+    # an LB unless a cert for this host exists in ACM. Upload or create your certificate before installing this chart.
+    alb.ingress.kubernetes.io/scheme: internet-facing
+spec:
+  rules:
+    - host: request.wilhelm-gateway.starburst-customer-success.com
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: gateway
+                port:
+                  number: 8080

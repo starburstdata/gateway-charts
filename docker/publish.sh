@@ -5,7 +5,7 @@ set -eux
 GATEWAY_VERSION=$1
 TAG=$2
 
-NAME=willmo/gateway
+NAME=harbor.starburstdata.net/gateway/gateway
 IMAGE=gateway:${GATEWAY_VERSION}-${TAG}
 TARGET=$NAME:${GATEWAY_VERSION}-${TAG}
 

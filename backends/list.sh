@@ -1,2 +1,3 @@
 #!/usr/bin/env sh
-curl -X GET https://request.wilhelm-gateway.starburst-customer-success.com/entity/GATEWAY_BACKEND | jq
+host=$(yq '.spec.rules[1].host' ingress.yaml)
+curl -X GET https://${host}/entity/GATEWAY_BACKEND | jq

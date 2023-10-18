@@ -37,10 +37,10 @@ backendState:
 
 
 dataStore:
-  jdbcUrl: jdbc:mysql://MYSQL_HOST:MYSQL_PORT/MYSQL_SCHEMA
-  user: MYSQL_USER
-  password: MYSQL_PASSWORD
-  driver: com.mysql.cj.jdbc.Driver
+  jdbcUrl: JDBC_URL
+  user: DB_USER
+  password: DB_PASSWORD
+  driver: JDBC_DRIVER
 
 server:
   applicationConnectors:

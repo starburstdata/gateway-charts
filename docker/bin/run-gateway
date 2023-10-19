@@ -73,6 +73,7 @@ sed -i \
 #    -e "s|HEALTHCHECK_JDBC_PORT|${HEALTHCHECK_JDBC_PORT}|g" \
 #    -e "s|HEALTHCHECK_USE_JWT|${HEALTHCHECK_USE_JWT}|g" \
 #    -e "s|COOKIE_PATHS|${COOKIE_PATHS}|g" \
+echo "$SECURITY_CONF" >> /gateway/config.yml
 
 cat /gateway/config.yml
 

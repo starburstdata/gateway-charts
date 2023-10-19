@@ -49,6 +49,14 @@ spec:
               path: /healthcheck
               port: admin-port
           env:
+            - name: SECURITY_CONF
+              value: |-
+              {{ if .Values.securityConf }}
+                {{- range $key, $val := .Values.securityConf }}
+                  {{ $key }}: {{ $val | toJson}}
+                {{- end }}
+              {{ else }}
+              {{ end }}
             - name: REQUEST_PORT
               value: "{{ .Values.gateway.requestPort }}"
             - name: APP_PORT

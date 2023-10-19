@@ -23,6 +23,8 @@ gateway:
     configPath: ""
   queryHistorySize: 1000
 
+securityConf: ""
+
 backendState:
   username:
   password:

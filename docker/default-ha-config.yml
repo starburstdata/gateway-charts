@@ -35,7 +35,6 @@ backendState:
   password: BACKEND_STATE_PASSWORD
   ssl: BACKEND_STATE_SSL
 
-
 dataStore:
   jdbcUrl: JDBC_URL
   user: DB_USER

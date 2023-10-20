@@ -1,6 +1,8 @@
 
 Trino Gateway Helm Charts
 ===========
+THIS REPOSITORY IS NOT GUARANTEED TO BE IN A WORKING STATE. FOR A STABLE RELEASE, PLEASE CONTACT STARBURST.
+===========
 
 [Trino Gateway](https://github.com/trinodb/trino-gateway) is a load balancer / proxy / gateway for Trino.
 

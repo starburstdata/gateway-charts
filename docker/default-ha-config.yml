@@ -9,6 +9,8 @@ requestRouter:
   ssl: TLS_ENABLED
   keystorePath: KEYSTORE_PATH
   keystorePass: KEYSTORE_PASSWORD
+  lookupQueryIds: false
+  rerouteRequestsToApplication: REROUTE_REQUESTS_TO_APPLICATION
 
 extraWhitelistPaths:
   - "/ui/insights"
@@ -53,10 +55,6 @@ server:
 # This can be adjusted based on the coordinator state
 monitor:
   connectionTimeout: HEALTHCHECK_CONNECTION_TIMEOUT
-  #useJwtAuth: HEALTHCHECK_USE_JWT
-  #jwt: "JWT_TOKEN"
-  #jdbcPort: HEALTHCHECK_JDBC_PORT
-  #jdbcUseSsl: HEALTHCHECK_JDBC_USE_SSL
 
 notifier:
   recipients: []
@@ -81,7 +79,7 @@ logging:
   # Logger-specific levels.
   loggers:
     io.trino: DEBUG
-    io.trino.gateway.ha.persistence.JdbcConnectionManager: DEBUG
+    io.trino.gateway.ha.persistence.JdbcConnectionManager: INFO
 
   appenders:
     - type: console

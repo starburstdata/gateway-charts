@@ -67,6 +67,7 @@ sed -i \
     -e "s|BACKEND_STATE_SSL|${BACKEND_STATE_SSL}|g" \
     -e "s|JDBC_URL|${JDBC_URL}|g" \
     -e "s|JDBC_DRIVER|${JDBC_DRIVER}|g" \
+
     /gateway/config.yml
 #    -e "s|HEALTHCHECK_JDBC_USE_SSL|${HEALTHCHECK_JDBC_USE_SSL}|g" \
 #    -e "s|JWT_TOKEN|${JWT_TOKEN}|g" \

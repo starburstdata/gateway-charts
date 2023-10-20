@@ -49,9 +49,9 @@ spec:
               path: /healthcheck
               port: admin-port
           env:
+            {{ if .Values.securityConf }}
             - name: SECURITY_CONF
               value: |-
-              {{ if .Values.securityConf }}
                 {{- range $key, $val := .Values.securityConf }}
                   {{ $key }}: {{ $val | toJson}}
                 {{- end }}

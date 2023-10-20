@@ -16,7 +16,8 @@ extraWhitelistPaths:
   - "/api/v1/dataProduct"
   - "/api/v1/dataproduct"
   - "/ext/faster"
-#TODO: Add Galaxy, BIAC and DP APIs
+  - "/"
+#TODO: Add Galaxy APIs
 
 cookiePaths:
   - "/ui/insights/login/proceed"

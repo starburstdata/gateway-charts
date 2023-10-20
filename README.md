@@ -1,10 +1,10 @@
 
-Lyft's Presto Gateway Helm Charts
+Trino Gateway Helm Charts
 ===========
 THIS REPOSITORY IS NOT GUARANTEED TO BE IN A WORKING STATE. FOR A STABLE RELEASE, PLEASE CONTACT STARBURST.
 ===========
 
-[presto-gateway](https://github.com/lyft/presto-gateway) is a load balancer / proxy / gateway for Trino/Presto.
+[Trino Gateway](https://github.com/trinodb/trino-gateway) is a load balancer / proxy / gateway for Trino.
 
 
 ## Usage
@@ -15,7 +15,7 @@ Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 Once Helm is set up properly, add the repo as follows:
 
 ```console
-helm repo add gateway https://posulliv.github.io/lyft-gateway-charts
+helm repo add gateway https://harbor.starburstdata.net/chartrepo/gateway 
 ```
 
 You can then run `helm search repo gateway` to see the charts.
@@ -23,11 +23,5 @@ You can then run `helm search repo gateway` to see the charts.
 Then you can install chart using:
 
 ```console
-helm install trino-gateway gateway/gateway --version 0.3.0
+helm install trino-gateway gateway/gateway --version 3.1
 ```
-
-## Documentation
-
-You can find an example of deploying on Google Cloud with this charts [here](https://posulliv.github.io/posts/lyft-gateway-helm/).
-
-You can find documentation about the chart [here](./charts/gateway/README.md).

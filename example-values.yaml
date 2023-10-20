@@ -31,15 +31,9 @@ gateway:
   notifier:
     startTlsEnabled: false
     recipients: []
-  rerouteRequestsToApplication: false
 
 monitor:
   connectionTimeout: 60
-  useJwtAuth: false
-  jwt: ""
-  #use the jwt/generate.py script to make yourself a jwt
-  jdbcPort: 443
-  jdbcUseSsl: true
 
 additionalVolumes:
   # This is used for mounting routing rule. If using, the path the rules

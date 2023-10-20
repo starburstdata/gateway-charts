@@ -4,7 +4,7 @@ routingRules:
 
 requestRouter:
   port: REQUEST_PORT
-  name: prestoRouter
+  name: trinoRouter
   historySize: QUERY_HISTORY_SIZE
   ssl: TLS_ENABLED
   keystorePath: KEYSTORE_PATH
@@ -12,11 +12,37 @@ requestRouter:
   lookupQueryIds: false
   rerouteRequestsToApplication: REROUTE_REQUESTS_TO_APPLICATION
 
+extraWhitelistPaths:
+  - "/ui/insights"
+  - "/api/v1/biac"
+  - "/api/v1/dataProduct"
+  - "/api/v1/dataproduct"
+  - "/ext/faster"
+  - "/"
+#TODO: Add Galaxy APIs
+
+cookiePaths:
+  - "/ui/insights/login/proceed"
+  - "/oauth2/callback"
+
+logoutCookiePaths:
+  - "/ui/insights/logout"
+  - "/ui/api/insights/logout"
+
+clusterStatsConfiguration:
+  useApi: false
+
+#Healthcheck credentials
+backendState:
+  username: BACKEND_STATE_USERNAME
+  password: BACKEND_STATE_PASSWORD
+  ssl: BACKEND_STATE_SSL
+
 dataStore:
-  jdbcUrl: jdbc:mysql://MYSQL_HOST:MYSQL_PORT/MYSQL_SCHEMA
-  user: MYSQL_USER
-  password: MYSQL_PASSWORD
-  driver: com.mysql.cj.jdbc.Driver
+  jdbcUrl: JDBC_URL
+  user: DB_USER
+  password: DB_PASSWORD
+  driver: JDBC_DRIVER
 
 server:
   applicationConnectors:
@@ -29,10 +55,6 @@ server:
 # This can be adjusted based on the coordinator state
 monitor:
   connectionTimeout: HEALTHCHECK_CONNECTION_TIMEOUT
-  useJwtAuth: HEALTHCHECK_USE_JWT
-  jwt: "JWT_TOKEN"
-  jdbcPort: HEALTHCHECK_JDBC_PORT
-  jdbcUseSsl: HEALTHCHECK_JDBC_USE_SSL
 
 notifier:
   recipients: []
@@ -40,15 +62,14 @@ notifier:
   smtpAuthEnabled: false
   startTlsEnabled: false
 
-
 modules:
-  - com.lyft.data.gateway.ha.module.HaGatewayProviderModule
-  - com.lyft.data.gateway.ha.module.ClusterStateListenerModule
-  - com.lyft.data.gateway.ha.module.NotifierModule
+  - io.trino.gateway.ha.module.HaGatewayProviderModule
+  - io.trino.gateway.ha.module.ClusterStateListenerModule
+  - io.trino.gateway.ha.module.ClusterStatsMonitorModule
 
 managedApps:
-  - com.lyft.data.gateway.ha.GatewayManagedApp
-  - com.lyft.data.gateway.ha.clustermonitor.ActiveClusterMonitor
+  - io.trino.gateway.ha.GatewayManagedApp
+  - io.trino.gateway.ha.clustermonitor.ActiveClusterMonitor
 
 # Logging settings.
 logging:
@@ -57,8 +78,8 @@ logging:
 
   # Logger-specific levels.
   loggers:
-    com.lyft: DEBUG
-    com.lyft.data.gateway.ha.persistence.JdbcConnectionManager: INFO
+    io.trino: DEBUG
+    io.trino.gateway.ha.persistence.JdbcConnectionManager: INFO
 
   appenders:
     - type: console

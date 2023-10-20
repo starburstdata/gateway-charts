@@ -5,7 +5,6 @@ type: application
 version: 0.5.0
 appVersion: 1.8.8
 
-home: https://github.com/starburstdata/presto-gateway
+home: https://github.com/starburstdata/trino-gateway
 sources:
-  - https://github.com/starburstdata/presto-gateway
-
+  - https://github.com/starburstdata/trino-gateway

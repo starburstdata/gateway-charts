@@ -5,12 +5,11 @@ routingRules:
 
 requestRouter:
   port: 8080
-  name: prestoRouter
+  name: trinoRouter
   historySize: 1000
   ssl: false
   keystorePath: 
   keystorePass:
-  rerouteRequestsToApplication: REROUTE_REQUESTS_TO_APPLICATION
 
 dataStore:
   jdbcUrl: jdbc:mysql://gateway-wm.cluster-ro-cng06bp9tay1.us-east-2.rds.amazonaws.com:3306/gateway?sslMode=DISABLED
@@ -35,12 +34,12 @@ notifier:
   recipients: []
 
 modules:
-  - com.lyft.data.gateway.ha.module.HaGatewayProviderModule
-  - com.lyft.data.gateway.ha.module.ClusterStateListenerModule
+  - io.trino.gateway.ha.module.HaGatewayProviderModule
+  - io.trino.gateway.ha.module.ClusterStateListenerModule
 
 managedApps:
-  - com.lyft.data.gateway.ha.GatewayManagedApp
-  - com.lyft.data.gateway.ha.clustermonitor.ActiveClusterMonitor
+  - io.trino.gateway.ha.GatewayManagedApp
+  - io.trino.gateway.ha.clustermonitor.ActiveClusterMonitor
 
 # Logging settings.
 logging:
@@ -50,7 +49,7 @@ logging:
   # Logger-specific levels.
   loggers:
     com.lyft: DEBUG
-    com.lyft.data.gateway.ha.persistence.JdbcConnectionManager: INFO
+    io.trino.gateway.ha.persistence.JdbcConnectionManager: INFO
 
   appenders:
     - type: console

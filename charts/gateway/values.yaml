@@ -24,7 +24,16 @@ gateway:
   queryHistorySize: 1000
   rerouteRequestsToApplication: true
 
+securityConf: ""
+
+backendState:
+  username:
+  password:
+  ssl: true
+
 backendDatabase:
+  type: postgres
+  #must be postgres or mysql
   host: localhost
   port: 3306
   schema: gateway
@@ -47,11 +56,6 @@ fullnameOverride: ""
 
 monitor:
   connectionTimeout: 15
-  useJwtAuth: false
-  jwt: ""
-  jdbcPort: 443
-  jdbcUseSsl: true
-
 
 resources: {}
 

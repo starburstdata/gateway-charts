@@ -1,19 +1,18 @@
 #!/usr/bin/env bash
 
 set -xeuo pipefail
-JAVA_HOME=`/usr/libexec/java_home -v 11`
 GATEWAY_VERSION=$1
 TAG=$2
 
-target='main'
+target='sb-release/3'
 #'release-0.1'
-repo='git@github.com:starburstdata/presto-gateway.git'
+repo='git@github.com:starburstdata/trino-gateway.git'
 
 # clone
 git clone -q ${repo}
 
 # build
-pushd presto-gateway
+pushd trino-gateway
 git checkout ${target}
 mvn --quiet clean install -DskipTests
 # get JAR file
@@ -26,5 +25,5 @@ docker build . --pull --platform linux/arm64 -f Dockerfile -t ${CONTAINER}-arm64
 docker image inspect -f '🚀 Built {{.Id}}' ${CONTAINER}-amd64
 docker image inspect -f '🚀 Built {{.Id}}' ${CONTAINER}-arm64
 # cleanup
-rm -rf presto-gateway
+rm -rf trino-gateway
 rm gateway-ha-$GATEWAY_VERSION-jar-with-dependencies.jar

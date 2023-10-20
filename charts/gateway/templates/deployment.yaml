@@ -49,21 +49,39 @@ spec:
               path: /healthcheck
               port: admin-port
           env:
+            {{ if .Values.securityConf }}
+            - name: SECURITY_CONF
+              value: |-
+                {{- range $key, $val := .Values.securityConf }}
+                  {{ $key }}: {{ $val | toJson}}
+                {{- end }}
+              {{ else }}
+              {{ end }}
             - name: REQUEST_PORT
               value: "{{ .Values.gateway.requestPort }}"
             - name: APP_PORT
               value: "{{ .Values.gateway.appPort }}"
             - name: ADMIN_PORT
               value: "{{ .Values.gateway.adminPort }}"
-            - name: MYSQL_HOST
-              value: {{ .Values.backendDatabase.host }}
-            - name: MYSQL_PORT
-              value: "{{ .Values.backendDatabase.port }}"
-            - name: MYSQL_SCHEMA
-              value: {{ .Values.backendDatabase.schema }}
-            - name: MYSQL_USER
+            - name: JDBC_URL
+              value: {{ if eq .Values.backendDatabase.type "postgres" }}
+                       jdbc:postgresql://{{ .Values.backendDatabase.host }}:{{ .Values.backendDatabase.port }}/{{ .Values.backendDatabase.schema }}
+                     {{ else if eq .Values.backendDatabase.type "mysql" }}
+                       jdbc:mysql://{{ .Values.backendDatabase.host }}:{{ .Values.backendDatabase.port }}/{{ .Values.backendDatabase.schema }}
+                     {{ else }}
+                       invalid_db_type
+                     {{end}}
+            - name: JDBC_DRIVER
+              value: {{ if eq .Values.backendDatabase.type "postgres" }}
+                       org.postgresql.Driver
+                     {{ else if eq .Values.backendDatabase.type "mysql" }}
+                       com.mysql.cj.jdbc.Driver
+                    {{ else }}
+                       invalid_db_type
+                    {{end}}
+            - name: DB_USER
               value: {{ .Values.backendDatabase.user }}
-            - name: MYSQL_PASSWORD
+            - name: DB_PASSWORD
               value: {{ .Values.backendDatabase.password }}
             - name: LOG_LEVEL
               value: {{ .Values.gateway.log.level }}
@@ -79,18 +97,14 @@ spec:
               value: {{ .Values.gateway.routingRules.enabled | quote }}
             - name: ROUTING_RULES_CONFIG_PATH
               value: {{ .Values.gateway.routingRules.configPath }}
-            - name: JWT_TOKEN
-              value: {{ .Values.monitor.jwt }}
             - name: HEALTHCHECK_CONNECTION_TIMEOUT
               value: "{{ .Values.monitor.connectionTimeout }}"
-            - name: HEALTHCHECK_JDBC_PORT
-              value: "{{ .Values.monitor.jdbcPort }}"
-            - name: HEALTHCHECK_JDBC_USE_SSL
-              value: {{ .Values.monitor.jdbcUseSsl | quote }}
-            - name: HEALTHCHECK_USE_JWT
-              value: {{ .Values.monitor.useJwtAuth | quote }}
-            - name: REROUTE_REQUESTS_TO_APPLICATION
-              value: {{ .Values.gateway.rerouteRequestsToApplication | quote }}
+            - name: BACKEND_STATE_USERNAME
+              value: {{ .Values.backendState.username}}
+            - name: BACKEND_STATE_PASSWORD
+              value: {{ .Values.backendState.password}}
+            - name: BACKEND_STATE_SSL
+              value: {{ .Values.backendState.ssl | quote }}
             {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
             {{- end }}

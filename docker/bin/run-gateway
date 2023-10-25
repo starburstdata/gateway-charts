@@ -41,12 +41,7 @@ BACKEND_STATE_PASSWORD=$(echo ${BACKEND_STATE_PASSWORD} | tr -d '\n ')
 BACKEND_STATE_SSL=$(echo ${BACKEND_STATE_SSL} | tr -d '\n ')
 JDBC_URL=$(echo ${JDBC_URL} | tr -d '\n ')
 JDBC_DRIVER=$(echo ${JDBC_DRIVER} | tr -d '\n ')
-#JWT_TOKEN=$(echo ${JWT_TOKEN} | tr -d '\n ')
 HEALTHCHECK_CONNECTION_TIMEOUT=$(echo ${HEALTHCHECK_CONNECTION_TIMEOUT} | tr -d '\n ')
-#HEALTHCHECK_JDBC_PORT=$(echo ${HEALTHCHECK_JDBC_PORT} | tr -d '\n ')
-#HEALTHCHECK_JDBC_USE_SSL=$(echo ${HEALTHCHECK_JDBC_USE_SSL} | tr -d '\n ')
-#HEALTHCHECK_USE_JWT=$(echo ${HEALTHCHECK_USE_JWT} | tr -d '\n ')
-#COOKIE_PATHS=$(echo ${COOKIE_PATHS} | tr -d '\n ')
 
 sed -i \
     -e "s|REQUEST_PORT|${REQUEST_PORT}|g" \
@@ -67,13 +62,7 @@ sed -i \
     -e "s|BACKEND_STATE_SSL|${BACKEND_STATE_SSL}|g" \
     -e "s|JDBC_URL|${JDBC_URL}|g" \
     -e "s|JDBC_DRIVER|${JDBC_DRIVER}|g" \
-
     /gateway/config.yml
-#    -e "s|HEALTHCHECK_JDBC_USE_SSL|${HEALTHCHECK_JDBC_USE_SSL}|g" \
-#    -e "s|JWT_TOKEN|${JWT_TOKEN}|g" \
-#    -e "s|HEALTHCHECK_JDBC_PORT|${HEALTHCHECK_JDBC_PORT}|g" \
-#    -e "s|HEALTHCHECK_USE_JWT|${HEALTHCHECK_USE_JWT}|g" \
-#    -e "s|COOKIE_PATHS|${COOKIE_PATHS}|g" \
 echo "$SECURITY_CONF" >> /gateway/config.yml
 
 cat /gateway/config.yml

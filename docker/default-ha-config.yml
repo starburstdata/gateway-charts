@@ -9,8 +9,6 @@ requestRouter:
   ssl: TLS_ENABLED
   keystorePath: KEYSTORE_PATH
   keystorePass: KEYSTORE_PASSWORD
-  lookupQueryIds: false
-  rerouteRequestsToApplication: REROUTE_REQUESTS_TO_APPLICATION
 
 extraWhitelistPaths:
   - "/ui/insights"

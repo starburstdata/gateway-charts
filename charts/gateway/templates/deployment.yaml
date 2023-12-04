@@ -105,6 +105,8 @@ spec:
               value: {{ .Values.backendState.password}}
             - name: BACKEND_STATE_SSL
               value: {{ .Values.backendState.ssl | quote }}
+            - name: EXTRA_JVM_OPTIONS
+              value: {{ .Values.extraJvmOptions }}
             {{- with .Values.env }}
             {{- toYaml . | nindent 12 }}
             {{- end }}

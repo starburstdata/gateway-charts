@@ -2,7 +2,7 @@ apiVersion: v2
 name: gateway
 description: A load balancer / proxy / gateway for Trino
 type: application
-version: 3
+version: 4
 appVersion: 1.8.8
 
 home: https://github.com/starburstdata/trino-gateway

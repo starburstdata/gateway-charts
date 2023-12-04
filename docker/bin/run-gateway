@@ -42,6 +42,7 @@ BACKEND_STATE_SSL=$(echo ${BACKEND_STATE_SSL} | tr -d '\n ')
 JDBC_URL=$(echo ${JDBC_URL} | tr -d '\n ')
 JDBC_DRIVER=$(echo ${JDBC_DRIVER} | tr -d '\n ')
 HEALTHCHECK_CONNECTION_TIMEOUT=$(echo ${HEALTHCHECK_CONNECTION_TIMEOUT} | tr -d '\n ')
+EXTRA_JVM_OPTIONS=$(echo ${EXTRA_JVM_OPTIONS} | tr -d '\n ')
 
 sed -i \
     -e "s|REQUEST_PORT|${REQUEST_PORT}|g" \
@@ -67,4 +68,4 @@ echo "$SECURITY_CONF" >> /gateway/config.yml
 
 cat /gateway/config.yml
 
-exec java -XX:MinRAMPercentage=50 -XX:MaxRAMPercentage=80 --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED -jar /gateway/gateway-ha.jar server /gateway/config.yml  "$@"
+exec java -XX:MinRAMPercentage=50 -XX:MaxRAMPercentage=80 --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED ${EXTRA_JVM_OPTIONS} -jar /gateway/gateway-ha.jar server /gateway/config.yml  "$@"

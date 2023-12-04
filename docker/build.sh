@@ -4,7 +4,7 @@ set -xeuo pipefail
 GATEWAY_VERSION=$1
 TAG=$2
 
-target='sb-release/3'
+target='sb-release/4'
 #'release-0.1'
 repo='git@github.com:starburstdata/trino-gateway.git'
 

@@ -17,7 +17,11 @@ extraWhitelistPaths:
   - "/api/v1/dataproduct"
   - "/ext/faster"
   - "/"
-#TODO: Add Galaxy APIs
+  - "/oauth/v2/token"
+  - "/public/api/v1"
+
+extraStatementPaths:
+  - "/ui/api/insights/ide/statement"
 
 cookiePaths:
   - "/ui/insights/login/proceed"
